@@ -1,0 +1,123 @@
+/* RESET (prevents cutting at the top) */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* Page wrapper */
+.container {
+  width: 350px;
+  margin: 40px auto; /* fixes top cutting */
+  font-family: Arial, sans-serif;
+  color: #111; /* Amazon dark text */
+}
+
+/* Logo */
+.logo {
+  text-align: center;
+  margin: 20px auto 20px auto; /* add top and bottom margin */
+  position: relative; /* ensure it stays above other elements if needed */
+  z-index: 10;
+  padding-top: 80px;
+  background: white; /* optional, in case header is overlapping */
+}
+
+.logo img {
+  width: 120px; /* slightly bigger if needed */
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+
+/* Card */
+.card {
+  background-color: #fff;
+  border: 1px solid silver;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Title */
+.title h3 {
+  margin: 0 0 15px 0;
+  font-size: 28px;
+  font-weight: 400;
+  color: #111; /* Amazon dark text */
+}
+
+/* Input group */
+.input {
+  margin-bottom: 15px;
+}
+
+.input label {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  color: #111;
+}
+
+.input input {
+  width: 100%;
+  height: 32px;
+  padding: 5px 8px;
+  border: 1px solid #a6a6a6;
+  border-radius: 3px;
+  background-color: #fff; /* white background */
+  color: #111; /* dark text */
+  font-size: 14px;
+}
+
+/* Input focus */
+.input input:focus {
+  outline: none;
+  border-color: #f90; /* orange border on focus */
+  box-shadow: 0 0 3px rgba(255,165,0,0.5);
+}
+
+/* Button */
+.button button {
+  width: 100%;
+  height: 36px;
+  background-color: #f0c14b;
+  border: 1px solid #a88734;
+  border-radius: 3px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  transition: background 0.2s;
+}
+
+.button button:hover {
+  background-color: #eeb933;
+}
+
+/* Error message */
+.error {
+  color: red;
+  margin-top: 10px;
+  font-size: 13px;
+}
+
+/* Text links */
+.agreement,
+.help {
+  font-size: 12px;
+  margin-top: 12px;
+  color: #111;
+}
+
+.agreement a,
+.help a {
+  color: #0066c0;
+  text-decoration: none;
+}
+
+.agreement a:hover,
+.help a:hover {
+  text-decoration: underline;
+}

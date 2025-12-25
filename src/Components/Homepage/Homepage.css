@@ -1,0 +1,22 @@
+/* Homepage.css */
+.homepage {
+    width: 100%;
+}
+
+.products-section {
+    padding: 40px 20px;
+    background-color: #f8f9fa;
+}
+
+.products-title {
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+    color: #333;
+    font-weight: bold;
+}
+
+.products-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}

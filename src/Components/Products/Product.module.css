@@ -1,0 +1,147 @@
+/* Product Grid */
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    padding: 20px;
+    background: linear-gradient(
+  to bottom,
+  rgba(255, 255, 255, 0) 0%,
+  rgba(255, 255, 255, 0.6) 50%,
+  rgba(255, 255, 255, 1) 100%
+);
+    margin-top: 200px;
+}
+
+/* Amazon Card */
+.amazonCard {
+    background: white;
+    padding: 15px;
+    width: 250px;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: all 0.3s;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.amazonCard:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+}
+
+.productLink {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+.amazonImage {
+    width: 100%;
+    height: 180px;
+    object-fit: contain;
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+.amazonTitle {
+    font-size: 14px;
+    color: #0F1111;
+    margin-bottom: 10px;
+    line-height: 1.4;
+    height: 40px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    flex-shrink: 0;
+}
+
+.ratingContainer {
+    margin-bottom: 10px;
+    flex-shrink: 0;
+}
+
+/* Make MUI Rating stars visible */
+/* This is the star rating color code - LINES 41-55 */
+.ratingContainer svg[data-testid="StarIcon"] {
+    color: black !important;
+    fill: orange!important;
+}
+
+.ratingContainer svg[data-testid="StarBorderIcon"] {
+    color: #CCCCCC !important;
+    fill: #CCCCCC !important;
+}
+
+/* Hover effect */
+.ratingContainer:hover svg[data-testid="StarIcon"] {
+    color: black !important;
+    fill: orange !important;
+}
+
+.ratingContainer:hover svg[data-testid="StarBorderIcon"] {
+    color: #CCCCCC !important;
+    fill: #CCCCCC !important;
+}
+
+.ratingText {
+    color: #0F1111;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.amazonPrice {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000 !important; /* Black price instead of red */
+    margin-bottom: 15px;
+    flex-shrink: 0;
+}
+
+.amazonButton {
+    width: 100%;
+    background: white !important;
+    border: 1px solid #D5D9D9 !important;
+    padding: 8px !important;
+    border-radius: 8px !important;
+    font-weight: bold !important;
+    cursor: pointer;
+    transition: all 0.3s;
+    color: #0F1111 !important; /* Black text */
+    margin-top: auto !important;
+    flex-shrink: 0;
+}
+
+.amazonButton:hover {
+    background: orange !important; /* Orange on hover */
+    border-color: orange !important;
+}
+
+.removeButton {
+    background-color: white !important;
+    color: #0F1111 !important;
+    border: 1px solid #D5D9D9 !important;
+}
+
+.removeButton:hover {
+    background-color: #F0F2F2 !important;
+}
+
+.loadingContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 400px;
+    width: 100%;
+    background: #f8f9fa;
+}
+
+.error {
+    text-align: center;
+    color: red;
+    padding: 40px;
+    font-size: 18px;
+}

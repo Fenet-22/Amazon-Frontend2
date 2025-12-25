@@ -1,0 +1,97 @@
+/* Wrapper over carousel */
+.categoryWrapper {
+  position: relative;
+  width: 100%;
+}
+
+/* Overlay container */
+.categoriesOverlay {
+  position: absolute;
+  bottom: -160px; /* pushes cards DOWN */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 1200px;
+  z-index: 10;
+}
+
+/* Grid */
+.categoriesInner {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* Card */
+.categoryCard {
+  background: #fff;
+  border-radius: 8px;
+  padding: 16px;
+  height: 320px; /* RECTANGLE */
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: #0f1111;
+  border: 1px solid #e0e0e0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  transition: all 0.2s ease;
+}
+
+/* Hover */
+.categoryCard:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Title */
+.cardTitle {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #000; /* BLACK title */
+}
+
+/* Image container */
+.cardImageContainer {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+/* Image */
+.cardImage {
+  max-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
+}
+
+/* Shop now link */
+.shopNow {
+  font-size: 14px;
+  color: #007185; /* Amazon blue */
+  font-weight: 500;
+  align-self: flex-start;
+  margin-top: auto; /* PUSHES TO BOTTOM */
+}
+
+.shopNow:hover {
+  text-decoration: underline;
+  color: #c7511f;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .categoriesInner {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .categoryCard {
+    height: 260px;
+  }
+
+  .cardImage {
+    max-height: 140px;
+  }
+}

@@ -1,0 +1,60 @@
+/* Empty orders message */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  font-family: 'Arial', sans-serif;
+  color: black; /* default text color */
+  background-color: #f5f5f5; /* light background for contrast */
+  min-height: 80vh;
+}
+
+/* Main title */
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #111; /* darker for emphasis */
+  margin-top: 80px;
+}
+.emptyOrders {
+  text-align: center;
+  padding: 3rem 2rem;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  color: #555; /* default text color for container */
+  font-size: 1.2rem;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+}
+
+/* Ensure p inside emptyOrders has correct color */
+.emptyOrders p {
+  color: #555; /* explicitly set color */
+  margin: 0.5rem 0;
+}
+
+/* Each order container */
+.order {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.05);
+  transition: transform 0.2s;
+  color: #333; /* set text color for order content */
+}
+
+/* Order ID styling */
+.orderId {
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #111; /* explicitly make strong text dark */
+}
+
+/* If you are using strong inside order */
+.order strong {
+  color: #111; /* ensures 'Order ID:' is dark */
+}
