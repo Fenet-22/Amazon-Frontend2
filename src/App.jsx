@@ -8,7 +8,7 @@ import Results from "./pages/results/Results";
 import Signup from "./pages/auth/Signup";
 import Cart from "./pages/cart/Cart";
 import Orders from "./pages/orders/Orders";
-import Payment from "./pages/payment/Payment";
+import Payment from "./pages/Payment/Payment";
 import ProductDetail from "./pages/productdetail/ProductDetail";
 import SearchResults from "./Components/SearchResults/SearchResults";
 
