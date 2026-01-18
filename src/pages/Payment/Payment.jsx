@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useCart } from "../../context/CartContext";
 import { useUser } from "../../context/UserContext";
-import classes from "./Payment.module.css";
+import classes from "./payment.module.css";
 import { useNavigate } from "react-router-dom";
 import { loadStripe } from "@stripe/stripe-js";
 import { CardElement, Elements, useStripe, useElements } from "@stripe/react-stripe-js";
