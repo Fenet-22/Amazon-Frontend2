@@ -1,5 +1,14 @@
+import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.jsx";  // Changed from App2.jsx to App.jsx
+import App from "./App.jsx";  // Your main App
 import "./index.css";
 
-ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+//  Import your LanguageProvider
+import { LanguageProvider } from "./utility/i18n.jsx";
+
+ReactDOM.createRoot(document.getElementById("root")).render(
+  // Wrap the whole app in LanguageProvider
+  <LanguageProvider>
+    <App />
+  </LanguageProvider>
+);

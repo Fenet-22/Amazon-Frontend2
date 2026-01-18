@@ -172,3 +172,36 @@
   margin-bottom: 10px;
   color: #111; /* make the title visible */
 }
+@media (max-width: 900px) {
+  .paymentContent {
+    flex-direction: column;
+  }
+
+  .leftColumn, .rightColumn {
+    width: 100%;
+  }
+}
+
+/* Mobile Phones */
+@media (max-width: 600px) {
+  .paymentContainer {
+    margin-top: 130px; /* Increased to avoid overlap with double headers */
+    padding: 10px;
+    border: none;
+  }
+
+  .cartItem {
+    flex-direction: row; /* Keeping row for smaller thumbnails, but could use column if titles are long */
+    align-items: center;
+  }
+
+  .itemImage {
+    width: 80px;
+    height: 80px;
+  }
+
+  .paymentHeader h2 {
+    font-size: 20px;
+    text-align: center;
+  }
+}

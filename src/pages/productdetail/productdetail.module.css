@@ -147,3 +147,42 @@
     font-size: 16px;
     cursor: default;
 }
+@media (max-width: 900px) {
+    .productContainer {
+        flex-direction: column;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .imageSection {
+        min-width: 100%;
+    }
+
+    .productImage {
+        max-height: 300px;
+    }
+}
+
+/* Mobile Phones */
+@media (max-width: 600px) {
+    .productDetailPage {
+        margin-top: 130px; /* Account for double header height */
+        padding: 0 10px;
+    }
+
+    .productTitle {
+        font-size: 20px;
+    }
+
+    .price {
+        font-size: 24px;
+    }
+
+    .backLink {
+        margin-bottom: 15px;
+    }
+
+    .descriptionText {
+        font-size: 14px;
+    }
+}

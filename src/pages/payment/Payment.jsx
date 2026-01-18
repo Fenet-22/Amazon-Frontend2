@@ -10,29 +10,33 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "../../utility/firebase";
 import Loader2 from "../../Components/Loader/Loader2";
 
-// Stripe client
+// Stripe client - Ensure this is your actual public key
 const stripePromise = loadStripe("pk_test_51Sh9fSFkdgfjwGpFvbos01ZbM4iCeBK2K7OBcM6DUHwqxd9t2eCUhyFKGoJaOlSZBkXWBC4Em4oiHPSKCNqfBsi800jiH9DwB7");
 
 function CheckoutForm({ cartTotal, cartItems }) {
   const { user } = useUser();
-  const { clearCart } = useCart(); //clearCart instead of setCartItems
+  const { clearCart } = useCart(); 
   const stripe = useStripe();
   const elements = useElements();
   const navigate = useNavigate();
+  
   const [error, setError] = useState("");
   const [succeeded, setSucceeded] = useState(false);
   const [processing, setProcessing] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    
     if (!stripe || !elements) return;
 
     setProcessing(true);
 
     try {
+      // 1. Create Payment Intent on the server
       const { data } = await axios.post(`/payment/create?total=${Math.floor(cartTotal * 100)}`);
       const clientSecret = data.clientSecret;
 
+      // 2. Confirm the payment with Stripe
       const payload = await stripe.confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
@@ -46,27 +50,26 @@ function CheckoutForm({ cartTotal, cartItems }) {
         setError(`Payment failed: ${payload.error.message}`);
         setProcessing(false);
       } else {
+        // 3. Save order to Firestore (only if user exists)
+        if (user?.uid) {
+          await addDoc(collection(db, "users", user.uid, "orders"), {
+            basket: cartItems,
+            amount: cartTotal,
+            created: new Date().getTime(), // Store as timestamp for easier sorting
+            paymentId: payload.paymentIntent.id
+          });
+        }
+
         setError("");
         setSucceeded(true);
-
-        // Save order to Firestore
-        await addDoc(collection(db, "users", user.uid, "orders"), {
-          basket: cartItems,
-          amount: cartTotal,
-          created: new Date(),
-        });
-
-        // Clear cart properly after payment
-        clearCart();
-
-        // Replace processing with success
         setProcessing(false);
-
-        // Navigate to orders page
-        navigate("/orders");
+        
+        // 4. Clear cart and redirect
+        clearCart();
+        navigate("/orders", { replace: true });
       }
     } catch (err) {
-      setError(err.message);
+      setError(err.response?.data?.message || err.message);
       setProcessing(false);
     }
   };
@@ -74,8 +77,11 @@ function CheckoutForm({ cartTotal, cartItems }) {
   return (
     <form onSubmit={handleSubmit} className={classes.checkoutForm}>
       <CardElement className={classes.cardElement} />
-      {error && <p className={classes.error}>{error}</p>}
-      <button disabled={!stripe || processing || succeeded} className={classes.payButton}>
+      {error && <p className={classes.error} style={{ color: "red", marginTop: "10px" }}>{error}</p>}
+      <button 
+        disabled={!stripe || processing || succeeded || cartItems.length === 0} 
+        className={classes.payButton}
+      >
         {processing ? <Loader2 /> : succeeded ? "Payment Succeeded!" : "Pay Now"}
       </button>
     </form>
@@ -91,13 +97,14 @@ function Payment() {
   useEffect(() => {
     if (!user) {
       setLoginBanner(true);
-      navigate("/auth"); // redirect to login if not signed in
+      const timer = setTimeout(() => navigate("/auth"), 3000);
+      return () => clearTimeout(timer);
     }
   }, [user, navigate]);
 
   return (
     <div className={classes.paymentContainer}>
-      {loginBanner && <div className={classes.loginBanner}>You must login to proceed</div>}
+      {loginBanner && <div className={classes.loginBanner}>You must login to proceed. Redirecting...</div>}
 
       <div className={classes.paymentHeader}>
         <h2>Checkout ({cartItems.length} {cartItems.length === 1 ? "item" : "items"})</h2>
@@ -107,9 +114,9 @@ function Payment() {
         <div className={classes.leftColumn}>
           <div className={classes.deliveryAddress}>
             <h3>Delivery Address</h3>
-            <p><h3>Email:</h3> {user?.email || "guest@example.com"}</p>
-            <p><h3>Address:</h3> 123 React Street</p>
-            <p>JavaScript City, JS 12345</p>
+            <div><strong>Email:</strong> {user?.email}</div>
+            <div><strong>Address:</strong> 123 React Street</div>
+            <div>JavaScript City, JS 12345</div>
           </div>
         </div>
 
@@ -119,14 +126,17 @@ function Payment() {
             {cartItems.length === 0 ? (
               <p>Your cart is empty.</p>
             ) : (
-              cartItems.map((item) => (
-                <div key={item.id} className={classes.cartItem}>
+              cartItems.map((item, idx) => (
+                <div key={idx} className={classes.cartItem}>
                   <img src={item.image} alt={item.title} className={classes.itemImage} />
                   <div className={classes.itemDetails}>
                     <p className={classes.itemTitle}>{item.title}</p>
-                    <p className={classes.itemRating}>{"".repeat(item.rating)}</p>
+                    {/* Fixed star rating rendering */}
+                    <p className={classes.itemRating}>
+                      {"⭐".repeat(item.rating || 0)}
+                    </p>
                     <p className={classes.itemQuantity}>Qty: {item.quantity}</p>
-                    <p className={classes.itemPrice}>${item.price.toFixed(2)}</p>
+                    <p className={classes.itemPrice}>${item.price?.toFixed(2)}</p>
                   </div>
                 </div>
               ))
@@ -135,7 +145,9 @@ function Payment() {
 
           <div className={classes.paymentSection}>
             <h3>Payment Method</h3>
-            <p>Total: ${cartTotal.toFixed(2)}</p>
+            <div className={classes.totalPrice}>
+              <strong>Total to Pay: ${cartTotal.toFixed(2)}</strong>
+            </div>
             <Elements stripe={stripePromise}>
               <CheckoutForm cartTotal={cartTotal} cartItems={cartItems} />
             </Elements>
